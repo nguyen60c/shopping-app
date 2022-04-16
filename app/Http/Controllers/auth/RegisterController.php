@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -25,6 +27,10 @@ class RegisterController extends Controller
         $user = User::create($request->validated());
 
         auth()->login($user);
+
+        /*Assign role and permissions*/
+//        $user->assignRole("user");
+//        $user->givePermissionTo("logout.perform");
 
         return redirect("/")->with("success", "Account successfully registered");
     }
