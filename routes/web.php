@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\users\HomeController;
+use App\Http\Controllers\users\LogoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,23 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(["namspace"=>"App\Http\Controllers"],function(){
+Route::group(["namspace" => "App\Http\Controllers"], function () {
 
     /*
      * Home Routes
      */
-    Route::get("/","HomeController@index")->name("home.index");
+    Route::get("/", [HomeController::class, "index"])->name("home.index");
 
-    Route::middleware("guest")->group(function(){
+    Route::middleware("guest")->group(function () {
         /*
          * Register Routes
          */
 
         /*Display form*/
-        Route::get("/register","auth\RegisterController@show")
+        Route::get("/register", [RegisterController::class, "show"])
             ->name("register.show");
         /*Create new account*/
-        Route::post("/register","auth\RegisterController@register")
+        Route::post("/register", [RegisterController::class, "register"])
             ->name("register.perform");
 
         /*
@@ -37,19 +41,19 @@ Route::group(["namspace"=>"App\Http\Controllers"],function(){
          */
 
         /*Display login form*/
-        Route::get("login","auth\LoginController@show")
+        Route::get("login", [LoginController::class, "show"])
             ->name("login.show");
 
         /*Login user*/
-        Route::post("login","auth\LoginController@login")
+        Route::post("login", [LoginController::class, "login"])
             ->name("login.perform");
     });
 
-    Route::middleware("auth")->group(function(){
+    Route::middleware("auth")->group(function () {
         /*
          * Logout Routes
          */
-        Route::get("logout","users\LogoutController@perform")
+        Route::get("logout", [LogoutController::class, "perform"])
             ->name("logout.perform");
     });
 });

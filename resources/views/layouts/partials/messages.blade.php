@@ -1,9 +1,8 @@
-adfasdfasdf
 @if(isset($errors) && count($errors)>0)
-    <div class="alert alert-warning" role="alert">
+    <div class="alert d-inline" role="alert">
         <ul class="list-unstyled mb-0">
-            @foreach($errors as $error)
-                <li>{{$error}}</li>
+            @foreach($errors->all() as $error)
+                <li class="text-danger">{{$error}}</li>
             @endforeach
         </ul>
     </div>
