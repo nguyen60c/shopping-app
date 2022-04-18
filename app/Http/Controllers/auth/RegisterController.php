@@ -29,9 +29,7 @@ class RegisterController extends Controller
         auth()->login($user);
 
         /*Assign role and permissions*/
-//        $user->assignRole("user");
-//        $user->givePermissionTo("logout.perform");
-
+        $user->assignRole("user");
         return redirect("/")->with("success", "Account successfully registered");
     }
 }
