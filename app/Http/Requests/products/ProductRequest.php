@@ -25,10 +25,13 @@ class ProductRequest extends FormRequest
     {
         return [
             "name" => "required|min:3",
-            "original" => "required|min:3",
+            "slug" => "required|min:3",
+            "details" => "required|min:3",
             "price" => "required|numeric|gt:0",
-            "quantity" => "required|numeric|gt:0",
-            "image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "shipping_cost" => "required|numeric|gt:0",
+            "category_id" => "",
+            "brand_id" => "",
+            "image_path" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ];
     }
 }

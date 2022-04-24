@@ -17,7 +17,7 @@
 
     <style>
         body{
-            padding-top: 10rem;
+            padding-top: 2rem !important;
         }
         .bd-placeholder-img {
             font-size: 1.125rem;

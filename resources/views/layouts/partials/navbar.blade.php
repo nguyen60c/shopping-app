@@ -6,32 +6,49 @@
                 <li class="nav_item active"><a href="/" class="nav-item__content nav-link px-2 text-white">Home</a></li>
                 @auth
                     @role("admin")
-                    <li class="nav_item"><a href="{{route("users.index")}}"
-                                            class="nav-item__content nav-link px-2 text-white">Users</a></li>
-                    <li class="nav_item"><a href="{{route("products.index")}}"
-                                            class="nav-item__content nav-link px-2 text-white">Products</a>
+                    <li class="nav_item">
+                        <a href="{{route("users.index")}}"
+                           class="nav-item__content nav-link px-2 text-white">Users
+                        </a>
                     </li>
-                    <li class="nav_item"><a href="{{route("roles.index")}}"
-                                            class="nav-item__content nav-link px-2 text-white">Roles</a></li>
-                    <li class="nav_item"><a href="{{route("permissions.index")}}"
-                                            class="nav-item__content nav-link px-2 text-white">Permissions</a>
+                    <li class="nav_item">
+                        <a href="{{route("products.index")}}"
+                           class="nav-item__content nav-link px-2 text-white">
+                            Products</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="{{route("roles.index")}}"
+                         class="nav-item__content nav-link px-2 text-white">
+                            Roles</a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="{{route("permissions.index")}}"
+                        class="nav-item__content nav-link px-2 text-white">
+                            Permissions
+                        </a>
                     </li>
                     @endrole
 
                     @role("seller")
-                    <li class="nav_item"><a href="#" class="nav-item__content nav-link px-2 text-white">Products</a>
+                    <li class="nav_item">
+                        <a href="{{route("products.index")}}"
+                         class="nav-item__content nav-link px-2 text-white">Products</a>
                     </li>
                     @endrole
 
                     @role("user")
-                    <li class="nav_item"><a href="#" class="nav-item__content nav-link px-2 text-white">Carts</a>
+                    <li class="nav_item">
+                        <a href="{{route("cart.index")}}"
+                            class="nav-item__content nav-link px-2 text-white">
+                            Carts</a>
                     </li>
-                    <li class="nav_item"><a href="#" class="nav-item__content nav-link px-2 text-white">Orders</a>
+
+                    <li class="nav_item">
+                        <a href="{{route("orders.index")}}"
+                           class="nav-item__content nav-link px-2 text-white">
+                            Orders</a>
                     </li>
                     @endrole
-
-                    <li class="nav_item"><a href="#" class="nav-item__content nav-link px-2 text-white">Profile</a>
-                    </li>
                 @endauth
             </ul>
 
@@ -47,8 +64,10 @@
 
             @guest
                 <div class="text-end">
-                    <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                    <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
+                    <a href="{{ route('login.perform') }}"
+                       class="btn btn-outline-light me-2">Login</a>
+                    <a href="{{ route('register.perform') }}"
+                       class="btn btn-warning">Sign-up</a>
                 </div>
             @endguest
         </div>

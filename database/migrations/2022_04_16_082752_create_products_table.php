@@ -15,18 +15,14 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->string("name", 120);
-            $table->string("original", 100);
-            $table->integer("price");
-            $table->integer("quantity");
-            $table->integer("image");
+            $table->string("name", 120)->unique();
+            $table->string("slug")->unique();
+            $table->string("details")->nullable();
+            $table->double("price");
+            $table->bigInteger("quantity")->default(0);
+            $table->text("description");
+            $table->string("image_path");
             $table->timestamps();
-
-            $table->foreign("user_id")
-                ->references("id")
-                ->on("users")
-                ->onDelete("cascade");
         });
     }
 
@@ -37,6 +33,8 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists("products");
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

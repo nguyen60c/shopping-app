@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <h1 class="mb-3">Laravel 8 User Roles and Permissions Step by Step Tutorial - codeanddeploy.com</h1>
 
     <div class="bg-light p-4 rounded">
         <h1>Users</h1>
@@ -27,10 +26,13 @@
             </tr>
             </thead>
             <tbody>
+            <div style="display: none">
+                {{$key = 0}}
+            </div>
             @foreach($users as $user)
                 <tr>
-                    <th scope="row">{{ $user->id }}</th>
-                    <td>{{ $user->name }}</td>
+                    <th scope="row">{{ ++$key }}</th>
+                    <td>{{ $user->name ?? "NoName" }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->username }}</td>
                     <td>

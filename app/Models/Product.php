@@ -9,20 +9,5 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "user_id",
-        "name",
-        "original",
-        "price",
-        "quantity",
-        "image"
-    ];
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
-    public function product(){
-
-    }
+    protected $guarded = [];
 }

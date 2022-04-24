@@ -27,7 +27,7 @@ class RegisterController extends Controller
         $user = User::create($request->validated());
 
         auth()->login($user);
-
+        \Cart::session($user->id);
         /*Assign role and permissions*/
         $user->assignRole("user");
         return redirect("/")->with("success", "Account successfully registered");

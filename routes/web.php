@@ -9,7 +9,9 @@ use App\Http\Controllers\users\LogoutController;
 use App\Http\Controllers\users\UsersController;
 use App\Http\Controllers\permissions\RolesController;
 use App\Http\Controllers\permissions\PermissionsController;
-use App\Http\Controllers\products\CartController;
+use App\Http\Controllers\carts\CartController;
+use App\Http\Controllers\orders\OrderDetailsController;
+use App\Http\Controllers\orders\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,32 +82,65 @@ Route::group(["namspace" => "App\Http\Controllers"], function () {
         /*
          * Cart Routes
          */
-        Route::Group(["prefix" => "cart"], function () {
-            Route::get("/", [CartController::class, "index"])
-                ->name("cart.index")
-                ->middleware("auth");
+        Route::group(["middleware" => ["role:user"]], function () {
+            Route::get("/cart", [CartController::class, "index"])
+                ->name("cart.index");
+
+            Route::get("/cart/products",[CartController::class, "products"])
+                ->name("cart.products");
+
+            Route::post("/cart/add", [CartController::class, "add"])
+                ->name("cart.store");
+
+            Route::post("/cart/update", [CartController::class, "update"])
+                ->name("cart.update");
+
+            Route::post("/cart/remove", [CartController::class, "remove"])
+                ->name("cart.remove");
+
+            Route::post("/cart/clear", [CartController::class, "clear"])
+                ->name("cart.clear");
+        });
+
+        /*
+         * Orders details Routes
+         */
+        Route::group(["middleware" => ["role:user"]], function () {
+            Route::get("/order", [OrderDetailsController::class, "index"])
+                ->name("order.index");
+            Route::post("/order",[OrderDetailsController::class, "store"])
+                ->name("order.store");
+        });
+
+        /*Order Routes*/
+        Route::group(["middleware"=>["role:user"]],function(){
+            Route::get("orders",[OrderController::class,"index"])
+                ->name("orders.index");
         });
 
         /*
          * Product Routes
          */
-        Route::group(['prefix' => 'products'], function () {
-            Route::get('/', [productsController::class, "index"])->name('products.index');
-            Route::get('/create', [productsController::class, "create"])->name('products.create');
-            Route::post('/create', [productsController::class, "store"])->name('products.store');
-            Route::get('/{product}/show', [productsController::class, "show"])->name('products.show');
-            Route::get('/{product}/edit', [productsController::class, "edit"])->name('products.edit');
-            Route::patch('/{product}/update', [productsController::class, "update"])->name('products.update');
-            Route::delete('/{product}/delete', [productsController::class, "destroy"])->name('products.destroy');
+        Route::group(['middleware' => 'role:admin|seller|user'], function () {
+            Route::get('/products', [productsController::class, "index"])->name('products.index');
+            Route::get('/products/create', [productsController::class, "create"])->name('products.create');
+            Route::post('/products/create', [productsController::class, "store"])->name('products.store');
+            Route::get('/products/{product}/show', [productsController::class, "show"])->name('products.show');
+            Route::get('/products/{product}/edit', [productsController::class, "edit"])->name('products.edit');
+            Route::patch('/products/{product}/update', [productsController::class, "update"])->name('products.update');
+            Route::delete('/products/{product}/delete', [productsController::class, "destroy"])->name('products.destroy');
 
             /*Ajax*/
             Route::get("/{product}/fetch", [productsController::class, "fetchProduct"])
                 ->name("product.fetch");
             Route::get("/fetch", [productsController::class, "fetchProducts"])
                 ->name("products.fetch");
+
         });
 
-        Route::resource('roles', RolesController::class);
-        Route::resource('permissions', PermissionsController::class);
+        Route::resource('roles', RolesController::class)
+            ->middleware(["role:admin"]);
+        Route::resource('permissions', PermissionsController::class)
+            ->middleware(["role:admin"]);
     });
 });
