@@ -39,18 +39,19 @@ class ProductsController extends Controller
      */
     public function store(ProductRequest $request, Product $product)
     {
+        ddd($request->all());
         if($request->validated()){
+
             /*Image*/
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images/products'), $imageName);
             /*Store info here*/
-            $product->user_id = auth()->id();
             $product->name = $request->name;
-            $product->original = $request->original;
+            $product->details = $request->details;
+            $product->shipping_cost = $request->shipping_cost;
             $product->price = $request->price;
-            $product->quantity = $request->quantity;
-            $product->image = $imageName;
-            $product->save();
+            $product->image_path = $imageName;
+            $product->update($request->all());
         }
 
         return redirect()->route('products.index')

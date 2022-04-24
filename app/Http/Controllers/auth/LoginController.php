@@ -34,7 +34,8 @@ class LoginController extends Controller
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
-
+        $userId = $user->id;
+        \Cart::session($userId);
         Auth::login($user);
 
         return $this->authenticated($request, $user);

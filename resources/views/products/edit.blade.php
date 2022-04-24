@@ -1,61 +1,110 @@
 @extends('layouts.app-master')
-
+@section("title","Update Product")
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h2>Update post</h2>
+        <h2>Update product</h2>
         <div class="lead">
-            Edit post.
+            Edit product.
         </div>
-
         <div class="container mt-4">
 
-            <form method="POST" action="{{ route('posts.update', $post->id) }}">
+            <form method="post" action="{{ route('products.update', $product->id) }}">
                 @method('patch')
                 @csrf
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input value="{{ $post->title }}"
+                    <label for="name" class="form-label">Name</label>
+                    <input value="{{ $product->name }}"
                            type="text"
                            class="form-control"
-                           name="title"
-                           placeholder="Title" required>
+                           name="name"
+                           placeholder="name" required>
 
-                    @if ($errors->has('title'))
-                        <span class="text-danger text-left">{{ $errors->first('title') }}</span>
+                    @if ($errors->has('name'))
+                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
 
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <input value="{{ $post->description }}"
+                    <label for="slug" class="form-label">Slug Product</label>
+                    <input value="{{ $product->slug }}"
                            type="text"
                            class="form-control"
+                           name="name"
+                           placeholder="slug" required>
+
+                    @if ($errors->has('slug'))
+                        <span class="text-danger text-left">
+                            {{ $errors->first('slug') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="details" class="form-label">Details:</label>
+                    <input value="{{ $product->details }}"
+                           type="text"
+                           class="form-control"
+                           name="original"
+                           placeholder="details" required>
+
+                    @if ($errors->has('details'))
+                        <span class="text-danger text-left">{{ $errors->first('details') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price:</label>
+                    <input class="form-control"
+                           type="number"
+                           name="price"
+                           placeholder="price" required value="{{ $product->price }}"/>
+
+                    @if ($errors->has('price'))
+                        <span class="text-danger text-left">{{ $errors->first('price') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="shipping_cost" class="form-label">Price:</label>
+                    <input class="form-control"
+                           type="number"
+                           name="shipping_cost"
+                           placeholder="Shipping cost" required
+                           value="{{ $product->shipping_cost }}"/>
+
+                    @if ($errors->has('shipping_cost'))
+                        <span class="text-danger text-left">
+                            {{ $errors->first('shipping_cost') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input class="form-control"
+                           type="text"
                            name="description"
-                           placeholder="Description" required>
+                           placeholder="Shipping cost" required
+                           value="{{ $product->description }}"/>
 
                     @if ($errors->has('description'))
-                        <span class="text-danger text-left">{{ $errors->first('description') }}</span>
+                        <span class="text-danger text-left">
+                            {{ $errors->first('description') }}</span>
                     @endif
                 </div>
 
                 <div class="mb-3">
-                    <label for="body" class="form-label">Body</label>
-                    <textarea
-                        type="text"
-                        class="form-control"
-                        name="body"
-                        placeholder="Body" required>{{ $post->body }}</textarea>
-
-                    @if ($errors->has('body'))
-                        <span class="text-danger text-left">{{ $errors->first('body') }}</span>
-                    @endif
+                    <label for="image_path" class="form-label">Image:</label>
+                    <input type="file" name="image_path" class="form-control" required>
                 </div>
 
+                @if ($errors->has('image_path'))
+                    <span class="text-danger text-left">{{ $errors->first('image_path') }}</span>
+                @endif
 
                 <button type="submit" class="btn btn-primary">Save changes</button>
-                <a href="{{ route('posts.index') }}" class="btn btn-default">Back</a>
+                <a href="{{ route('products.index') }}" class="btn btn-default">Back</a>
             </form>
         </div>
+
 
     </div>
 @endsection

@@ -12,11 +12,9 @@ class LogoutController extends Controller
     /**
      * Log out account user
      */
-    public function perform(){
-        Session::flush();
-
+    public function perform(Request $request){
+        $request->session()->flush();
         Auth::logout();
-
         return redirect("login");
     }
 }

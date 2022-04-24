@@ -17,12 +17,11 @@ class CreateSellerUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            "name" => "Seller",
-            'email' => 'seller@gmail.com',
-            'username' => 'seller',
-            'password' => 'admin123'
+            "name" => "Seller_test",
+            'email' => 'seller_test@gmail.com',
+            'username' => 'seller_test',
+            'password' => 'seller123'
         ]);
-
         $role = Role::create(['name' => 'seller']);
 
         $permissions = Permission::pluck('id', 'id')->all();
@@ -30,5 +29,6 @@ class CreateSellerUserSeeder extends Seeder
         $role->syncPermissions($permissions);
 
         $user->assignRole([$role->id]);
+//        $user->assignRole("seller");
     }
 }

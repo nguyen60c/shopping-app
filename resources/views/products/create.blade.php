@@ -22,15 +22,29 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="original" class="form-label">From:</label>
-                    <input value="{{ old('original') }}"
+                    <label for="slug" class="form-label">Slug Product</label>
+                    <input value="{{ old('slug') }}"
+                           type="text"
+                           class="form-control"
+                           name="name"
+                           placeholder="slug" required>
+
+                    @if ($errors->has('slug'))
+                        <span class="text-danger text-left">
+                            {{ $errors->first('slug') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="details" class="form-label">Details:</label>
+                    <input value="{{ old('details') }}"
                            type="text"
                            class="form-control"
                            name="original"
-                           placeholder="Original" required>
+                           placeholder="details" required>
 
-                    @if ($errors->has('original'))
-                        <span class="text-danger text-left">{{ $errors->first('original') }}</span>
+                    @if ($errors->has('details'))
+                        <span class="text-danger text-left">{{ $errors->first('details') }}</span>
                     @endif
                 </div>
 
@@ -47,24 +61,40 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity:</label>
+                    <label for="shipping_cost" class="form-label">Price:</label>
                     <input class="form-control"
                            type="number"
-                           name="quantity"
-                           placeholder="quantity" required value="{{ old('quantity') }}"/>
+                           name="shipping_cost"
+                           placeholder="Shipping cost" required
+                           value="{{ old('shipping_cost') }}"/>
 
-                    @if ($errors->has('quantity'))
-                        <span class="text-danger text-left">{{ $errors->first('quantity') }}</span>
+                    @if ($errors->has('shipping_cost'))
+                        <span class="text-danger text-left">
+                            {{ $errors->first('shipping_cost') }}</span>
                     @endif
                 </div>
 
                 <div class="mb-3">
-                    <label for="image" class="form-label">Image:</label>
-                    <input type="file" name="image" class="form-control" required>
+                    <label for="description" class="form-label">Description:</label>
+                    <input class="form-control"
+                           type="text"
+                           name="description"
+                           placeholder="Shipping cost" required
+                           value="{{ old('description') }}"/>
+
+                    @if ($errors->has('description'))
+                        <span class="text-danger text-left">
+                            {{ $errors->first('description') }}</span>
+                    @endif
                 </div>
 
-                @if ($errors->has('image'))
-                    <span class="text-danger text-left">{{ $errors->first('image') }}</span>
+                <div class="mb-3">
+                    <label for="image_path" class="form-label">Image:</label>
+                    <input type="file" name="image_path" class="form-control" required>
+                </div>
+
+                @if ($errors->has('image_path'))
+                    <span class="text-danger text-left">{{ $errors->first('image_path') }}</span>
                 @endif
 
                 <button type="submit" class="btn btn-primary">Save product</button>
