@@ -105,7 +105,7 @@ Route::group(["namspace" => "App\Http\Controllers"], function () {
         /*
          * Orders details Routes
          */
-        Route::group(["middleware" => ["role:user"]], function () {
+        Route::group(["middleware" => ["role:user|admin"]], function () {
             Route::get("/order", [OrderDetailsController::class, "index"])
                 ->name("order.index");
             Route::post("/order",[OrderDetailsController::class, "store"])
@@ -113,9 +113,20 @@ Route::group(["namspace" => "App\Http\Controllers"], function () {
         });
 
         /*Order Routes*/
-        Route::group(["middleware"=>["role:user"]],function(){
+        Route::group(["middleware"=>["role:user|admin"]],function(){
             Route::get("orders",[OrderController::class,"index"])
                 ->name("orders.index");
+
+            Route::get("orders/{id}",[OrderController::class,"showListOrder_details"])
+                ->name("orders.show");
+
+            Route::post("orders/update",
+                [OrderController::class,"displayOrder_detailsUser"])
+                ->name("orders.display");
+
+            Route::post("orders/{id}/update",
+                [OrderController::class,"update"])
+                ->name("orders.update_specified");
         });
 
         /*

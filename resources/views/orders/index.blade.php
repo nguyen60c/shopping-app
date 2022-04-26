@@ -1,4 +1,4 @@
-@extends("layouts.app-master");
+@extends("layouts.app-master")
 
 @section('title') {{ 'Orders' }} @endsection
 
@@ -39,11 +39,13 @@
                                 <td class="align-middle">{{$order["product_name"]}}</td>
                                 <td class="align-middle">{{$order["quantity"]}}</td>
                                 <td class="align-middle">${{number_format($order["total"])}}</td>
-                                @if($order["status"] === "Processing" || $order["status"] === "Ordered")
+                                @if($order["status"] === "Processing")
                                     <td class="align-middle text-success bolder"
                                         style="font-weight: 700">{{$order["status"]}}</td>
-                                @endif
-                                @if($order["status"] === "Cancel")
+                                @elseif($order["status"] === "Shipping")
+                                    <td class="align-middle text-warning bolder"
+                                        style="font-weight: 700">{{$order["status"]}}</td>
+                                @elseif($order["status"] === "Cancel")
                                     <td class="align-middle text-danger bolder"
                                         style="font-weight: 700">{{$order["status"]}}</td>
                                 @endif
@@ -80,11 +82,13 @@
                                 <td class="align-middle">{{$order["product_name"]}}</td>
                                 <td class="align-middle">{{$order["quantity"]}}</td>
                                 <td class="align-middle">${{number_format($order["total"])}}</td>
-                                @if($order["status"] === "Processing" || $order["status"] === "Ordered")
+                                @if($order["status"] === "Processing")
                                     <td class="align-middle text-success bolder"
                                         style="font-weight: 700">{{$order["status"]}}</td>
-                                @endif
-                                @if($order["status"] === "Cancel")
+                                @elseif($order["status"] === "Shipping")
+                                    <td class="align-middle text-warning bolder"
+                                        style="font-weight: 700">{{$order["status"]}}</td>
+                                @elseif($order["status"] === "Cancel")
                                     <td class="align-middle text-danger bolder"
                                         style="font-weight: 700">{{$order["status"]}}</td>
                                 @endif
